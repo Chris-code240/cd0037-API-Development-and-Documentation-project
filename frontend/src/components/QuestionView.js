@@ -71,11 +71,13 @@ class QuestionView extends Component {
         this.setState({
           questions: result.questions,
           totalQuestions: result.total_questions,
-          currentCategory: result.current_category,
+          currentCategory: result.current_category
         });
+        
         return;
       },
       error: (error) => {
+        // alert(this.state.currentCategory);
         alert('Unable to load questions. Please try your request again');
         return;
       },
@@ -85,7 +87,7 @@ class QuestionView extends Component {
   submitSearch = (searchTerm) => {
     $.ajax({
       url: `/questions`, //TODO: update request URL
-      type: 'POST',
+      type: 'GET',
       dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify({ searchTerm: searchTerm }),
@@ -99,6 +101,7 @@ class QuestionView extends Component {
           totalQuestions: result.total_questions,
           currentCategory: result.current_category,
         });
+        console.log('searchTerm ->',result)
         return;
       },
       error: (error) => {
