@@ -112,7 +112,7 @@ You will need to provide detailed documentation of your API endpoints including 
 {
    "questions":[questions],
    "total_questions":len(questions),
-    "current_category"category
+    "current_category":category
 }
 ```
 `DELETE '/api/v1.0/questions/<int:question_id>'`
@@ -162,7 +162,7 @@ You will need to provide detailed documentation of your API endpoints including 
 
 ```json
 {
-    "question":{'question':string,'answer':answer,          'category':category,'difficulty':difficulty}
+    "question":{'question':string,'answer':answer,'category':category,'difficulty':difficulty}
 }
 ```
 ## Testing
