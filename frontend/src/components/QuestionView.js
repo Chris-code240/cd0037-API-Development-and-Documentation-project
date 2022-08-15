@@ -86,11 +86,11 @@ class QuestionView extends Component {
 
   submitSearch = (searchTerm) => {
     $.ajax({
-      url: `/questions`, //TODO: update request URL
-      type: 'GET',
+      url: `/search`, //TODO: update request URL
+      type: 'POST',
       dataType: 'json',
       contentType: 'application/json',
-      data: JSON.stringify({ searchTerm: searchTerm }),
+      data: JSON.stringify({ search_term: searchTerm }),
       xhrFields: {
         withCredentials: true,
       },
@@ -101,7 +101,6 @@ class QuestionView extends Component {
           totalQuestions: result.total_questions,
           currentCategory: result.current_category,
         });
-        console.log('searchTerm ->',result)
         return;
       },
       error: (error) => {

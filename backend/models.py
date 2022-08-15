@@ -5,6 +5,7 @@ import json
 
 database_name = 'trivia'
 database_path = "postgres://{}/{}".format('postgres:Liukangs240@localhost:5432',database_name)
+secrete_key = os.urandom(12)
 
 db = SQLAlchemy()
 
@@ -15,6 +16,7 @@ setup_db(app)
 def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["SECRETE_KEY"]=secrete_key
     db.app = app
     db.init_app(app)
     db.create_all()

@@ -89,7 +89,82 @@ You will need to provide detailed documentation of your API endpoints including 
   "6": "Sports"
 }
 ```
+`GET '/api/v1.0/questions'`
 
+- Fetches a dictionary of all questions
+- Request Arguments: None
+- Returns: An object that contains paginated set of questions as `questions: [questions]`, total number of questions as `total_questions: len([questions])`, and all categories as `categories: [category_type]` values.
+
+```json
+{
+   "questions":[questions],
+   "total_questions":len(questions),
+    "categories":[categories]
+}
+```
+`GET '/api/v1.0/search'`
+
+- Provided a serch term as `string: search_term`,fetches a dictionary of all questions containing the string
+- Request Arguments: `string: search_term`
+- Returns: An object that contains a list of questions as `questions: [questions]`, total number of questions as `total_questions: len([questions])`, and the current category as `current_category:category`.
+
+```json
+{
+   "questions":[questions],
+   "total_questions":len(questions),
+    "current_category"category
+}
+```
+`DELETE '/api/v1.0/questions/<int:question_id>'`
+
+-Deletes a particular question provided its question id
+- Request Arguments: `int: question_id`
+- Returns: An object that contains a success value pair as `success: True`,the deleted id as `deleted: deleted_question_id_int`, and the string of the deleted question as `question: question_string`.
+
+```json
+{
+   "success":True,
+    "deleted":question_id_int,
+    "question":question_string
+}
+```
+`POST '/api/v1.0/questions'`
+
+-Creates a new question if the question, its category difficulty level are provided
+- Request Arguments: `string: question`,`int: question_category`, `int: question_difficulty`
+- Returns: An object that contains a success value pair as `success: True`,the created question as `created: created_question_string`, and the total number of questions as `total_questions: len(all_questions)`.
+
+```json
+{
+  "success":True,
+  "created":question,
+  "total_questions":len([all_questions])
+}
+```
+`GET '/api/v1.0/categories/<int:category_id>/questions'`
+
+- Fetches all questions of a particular category
+- Request Arguments: `int: category_id`
+- Returns: An object that contains a list questions belonging to the category as `questions: [questions]`, the total number of questions as `total_questions: len(questions)`, and the current category with a string value as `current_category: category_type_string`.
+
+```json
+{
+    "questions":questions,
+    "total_questions":len(questions),
+    "current_category":category_type
+}
+```
+`POST '/api/v1.0/quizzes'`
+
+- Fetches a random question considering a list previous questions' ids and category
+- Request Arguments: `[int: previous_questions_ids]`,`[int: category: category_id]`
+- Returns: An object that contains an object of a question belonging to the category,excluding the previous ones as `question: {'question':question_string,'answer':answer,'category':question_category,'difficulty':difficulty_level_int}`.
+
+```json
+{
+    "question":{'question':string,'answer':answer,          'category':category,'difficulty':difficulty}
+}
+```
 ## Testing
 
 Write at least one test for the success and at least one error behavior of each endpoint using the unittest library.
