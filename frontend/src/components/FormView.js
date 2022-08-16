@@ -9,7 +9,7 @@ class FormView extends Component {
       question: '',
       answer: '',
       difficulty: 1,
-      category: '',
+      category: '0',
       categories: {},
     };
   }

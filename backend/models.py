@@ -3,9 +3,15 @@ from sqlalchemy import Column, String, Integer
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-database_name = 'trivia'
-database_path = "postgres://{}/{}".format('postgres:Liukangs240@localhost:5432',database_name)
-secrete_key = os.urandom(12)
+
+DB_HOST = os.getenv('DB_HOST','127.0.0.1:5432')
+DB_USER = os.getenv('DB_USER','postgres')
+DB_PASSWORD = os.getenv('DB_PASSWORD','Liukangs240')
+DB_NAME = os.getenv('database_name','trivia')
+
+
+DB_APTH = "postgresql+psycopg2://{}:{}@{}/{}".format(DB_USER,DB_PASSWORD,DB_HOST,DB_NAME)
+
 
 db = SQLAlchemy()
 
@@ -13,10 +19,9 @@ db = SQLAlchemy()
 setup_db(app)
     binds a flask application and a SQLAlchemy service
 """
-def setup_db(app, database_path=database_path):
+def setup_db(app, database_path=DB_APTH):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config["SECRETE_KEY"]=secrete_key
     db.app = app
     db.init_app(app)
     db.create_all()
