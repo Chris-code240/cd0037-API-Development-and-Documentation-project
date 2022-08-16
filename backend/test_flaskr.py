@@ -100,22 +100,23 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
 
     def test_delete_question(self):
-        res = self.client().delete('/questions/21')
+        res = self.client().delete('/questions/5')
         data = json.loads(res.data)
-        ques = Question.query.filter(Question.id == 2).one_or_none()
+        ques = Question.query.filter(Question.id == 5).one_or_none()
 
         self.assertEqual(data['success'], True)
+        self.assertEqual(data['deleted'], 5)
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(not ques, False)
+        self.assertEqual(not ques, True)
 
     def test_could_not_delete_question(self):
-        res = self.client().delete('/questions/21')
+        res = self.client().delete('/questions/43')
         data = json.loads(res.data)
-        ques = Question.query.filter(Question.id == 2).one_or_none()
+        ques = Question.query.filter(Question.id == 43).one_or_none()
 
         self.assertEqual(data['success'], False)
-        self.assertEqual(res.status_code, 500)
-        self.assertEqual(not ques, False)
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(not ques, True)
 
     def test_get_questions_by_category(self):
         res = self.client().get('/categories/1/questions')
@@ -147,7 +148,8 @@ class TriviaTestCase(unittest.TestCase):
                     "id": 6}})
         data = json.loads(res.data)
 
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(not data,True)
 
 
 # Make the tests conveniently executable

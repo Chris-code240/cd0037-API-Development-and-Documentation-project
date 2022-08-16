@@ -116,19 +116,20 @@ def create_app(test_config=None):
     """
     @app.route('/questions/<int:q_id>', methods=['DELETE'])
     def del_question(q_id):
-        question = Question.query.filter(Question.id == (q_id)).one_or_none()
-        id = question.format()['id']
-        ques = question.format()['question']
-        if question is not None:
+        try:
+            question = Question.query.filter(Question.id == q_id).one_or_none()
+            id = q_id
+            ques = question.format()['question']
+            
             question.delete()
             question.update()
             return jsonify({
-                "success": True,
-                "deleted": id,
-                "question": ques
-            })
-        else:
-            abort(500)
+                    "success": True,
+                    "deleted": id,
+                    "question": ques
+                })
+        except:
+                abort(404)
 
     """
     @TODO:
